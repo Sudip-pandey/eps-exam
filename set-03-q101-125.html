@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPS-TOPIK Grammar Quiz — Set 03 (Q101–Q125)</title>
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --green: #188038;
+    --green-bg: #e6f4ea;
+    --red: #d93025;
+    --red-bg: #fce8e6;
+    --bg: #f0f4f9;
+    --card: #ffffff;
+    --text: #1f1f1f;
+    --muted: #5f6368;
+    --border: #dadce0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Noto Sans", "Noto Sans Devanagari", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--primary); font-weight: 700; font-size: .95rem; padding: 10px 20px; border-radius: 999px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,.18); margin-bottom: 12px; transition: transform .15s, box-shadow .15s; }
+  .back-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.22); }
+  header { background: var(--primary); color: #fff; padding: 20px 16px 16px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+  .header-inner { max-width: 760px; margin: 0 auto; }
+  header h1 { font-size: 1.35rem; line-height: 1.3; }
+  header p { opacity: .9; font-size: .9rem; margin-top: 2px; }
+  .progress-wrap { margin-top: 12px; background: rgba(255,255,255,.25); border-radius: 999px; height: 8px; overflow: hidden; }
+  .progress-bar { height: 100%; background: #fff; width: 0%; transition: width .3s; }
+  .progress-text { font-size: .82rem; margin-top: 6px; opacity: .95; }
+  main { max-width: 760px; margin: 0 auto; padding: 20px 16px 80px; }
+  .q-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .q-card.answered { border-left: 4px solid var(--primary); }
+  .q-num { font-size: .8rem; font-weight: 700; color: var(--primary); letter-spacing: .02em; }
+  .q-text { font-size: 1.08rem; white-space: pre-line; margin: 8px 0 14px; line-height: 1.8; }
+  .options label { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: background .15s, border-color .15s; font-size: 1.02rem; }
+  .options label:hover { background: #f8f9fa; border-color: var(--primary); }
+  .options input { margin-top: 5px; accent-color: var(--primary); width: 18px; height: 18px; flex: none; }
+  .options label.selected { background: #e8f0fe; border-color: var(--primary); }
+  .pager { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 8px 0 20px; flex-wrap: wrap; }
+  .pager .page-info { font-weight: 600; color: var(--muted); }
+  button { font: inherit; cursor: pointer; border: none; border-radius: 8px; padding: 11px 22px; font-weight: 600; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-primary:disabled { background: #a8c7fa; cursor: not-allowed; }
+  .btn-ghost { background: #fff; color: var(--primary); border: 1px solid var(--border); }
+  .submit-bar { position: sticky; bottom: 0; background: var(--card); border-top: 1px solid var(--border); padding: 14px 16px; display: flex; justify-content: center; box-shadow: 0 -2px 8px rgba(0,0,0,.08); }
+  .submit-bar .inner { max-width: 760px; width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .submit-bar .hint { color: var(--muted); font-size: .9rem; }
+  /* Results */
+  .score-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 20px; text-align: center; margin-bottom: 20px; }
+  .score-card .big { font-size: 2.6rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
+  .score-card .pct { font-size: 1.1rem; color: var(--muted); margin-top: 4px; }
+  .score-card .msg { margin-top: 10px; font-size: 1rem; }
+  .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filters button { padding: 8px 16px; }
+  .filters button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .review-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+  .review-card.correct { border-left: 5px solid var(--green); }
+  .review-card.wrong { border-left: 5px solid var(--red); }
+  .verdict { font-weight: 700; font-size: .95rem; margin-bottom: 6px; }
+  .verdict.ok { color: var(--green); }
+  .verdict.no { color: var(--red); }
+  .review-card .ans-line { margin: 4px 0; }
+  .review-card .ans-line b { font-weight: 700; }
+  .review-card .ans-line .mine-wrong { color: var(--red); }
+  .review-card .ans-line .right { color: var(--green); }
+  .explain { background: #f8f9fa; border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-size: .96rem; }
+  .explain b { color: var(--primary-dark); }
+  .hidden { display: none; }
+  footer { text-align: center; color: var(--muted); font-size: .82rem; padding: 20px; }
+  @media (max-width: 520px) {
+    header h1 { font-size: 1.15rem; }
+    .q-text { font-size: 1rem; }
+    .submit-bar .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="back-btn">&larr; Back to All Sets</a>
+    <h1>EPS-TOPIK 문제은행 Quiz</h1>
+    <p>Set 3 of 3 &bull; Questions 101–125 &bull; 25 questions &bull; EPS-TOPIK Grammar &mdash; answers from the book's answer sheet; explanations AI-generated in Nepali &mdash; check with a teacher</p>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 25 answered</div>
+    <div style="font-size:.78rem; margin-top:4px; opacity:.85;">Progress will be auto-saved.</div>
+  </div>
+</header>
+
+<main id="quizView">
+  <div id="questionList"></div>
+  <div class="pager">
+    <button class="btn-ghost" id="prevBtn">&larr; Previous</button>
+    <span class="page-info" id="pageInfo"></span>
+    <button class="btn-ghost" id="nextBtn">Next &rarr;</button>
+  </div>
+</main>
+
+<div class="submit-bar" id="submitBar">
+  <div class="inner">
+    <span class="hint" id="submitHint">Answer all 25, then submit.</span>
+    <div style="display:flex; gap:8px; flex:none;">
+      <button class="btn-ghost" id="clearBtn" style="padding:11px 16px;">Clear all</button>
+      <button class="btn-primary" id="submitBtn">Submit Quiz</button>
+    </div>
+  </div>
+</div>
+
+<main id="resultView" class="hidden">
+  <div class="score-card">
+    <div class="big" id="scoreBig"></div>
+    <div class="pct" id="scorePct"></div>
+    <div class="msg" id="scoreMsg"></div>
+    <div style="margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <button class="btn-primary" id="retryBtn">Try Again</button>
+      <button class="btn-ghost" id="reviewTopBtn">Back to top</button>
+    </div>
+  </div>
+  <div class="filters">
+    <button class="btn-ghost active" data-filter="all">All questions</button>
+    <button class="btn-ghost" data-filter="wrong">Wrong only</button>
+    <button class="btn-ghost" data-filter="correct">Correct only</button>
+  </div>
+  <div id="reviewList"></div>
+</main>
+
+<script>
+const QUESTIONS = [{"n": 101, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["설̲날̲에 죽을 먹어요.", "추̲석̲에 송편을 만들어요.", "동̲지̲에 윷놀이를 해요.", "정̲월̲대̲보̲름̲에 세배를 해요."], "answer": 1, "explain": "추석에 송편을 만들어요 वाक्य सही हो किनभने छुसकमा सोङप्योन बनाइन्छ र खाइन्छ। विकल्प १ मा 설날 मा खिर (죽) होइन, तोक्गुक खाइन्छ। विकल्प ३ मा 동지 मा युत्नोरी होइन, रातो सिमीको दलिया (पात्जुक) खाइन्छ। विकल्प ४ मा 정월대보름 मा सेबे होइन, ओखर फोड्ने वा विशेष खाना खाने चलन हुन्छ।"}, {"n": 102, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["환̲갑̲에 돌잔치를 해요.", "집̲들̲이̲에 휴지를 팔아요.", "복̲날̲에 삼계탕을 먹어요.", "삼̲일̲절̲에 결혼을 해요."], "answer": 2, "explain": "복날에 삼계탕을 먹어요 वाक्य सही हो किनभने गर्मीयामको बोक्नालमा साम्ये탕 खाइन्छ। विकल्प १ मा 환갑 (६० औं जन्मदिन) मा 돌잔치 (१ वर्षको उत्सव) होइन, ह्वानगाप잔치 हुन्छ। विकल्प २ मा घर सर्दा (집들이) टिस्यु पेपर वा डिटर्जेन्ट उपहार दिइन्छ, बेचिँदैन। विकल्प ४ मा 삼일절 मा विवाह होइन, राष्ट्रिय स्वतन्त्रता आन्दोलनको स्मरण गरिन्छ।"}, {"n": 103, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["어̲린̲이̲날̲에 아이가 학교에 입학해요.", "스̲승̲의̲날̲에 생일을 축하해요.", "개̲천̲절̲에 부모에게 꽃을 달아 드려요.", "광̲복̲절̲에 태극기를 달아요."], "answer": 3, "explain": "광복절에 태극기를 달아요 वाक्य सही हो किनभने ग्वानबोक्जोल् (स्वतन्त्रता दिवस) मा राष्ट्रिय झण्डा ताएगुक्की झुन्ड्याइन्छ। विकल्प १ मा 어린이날 मा बालबालिका विद्यालय भर्ना हुने समय होइन। विकल्प २ मा 스승의날 मा जन्मदिन होइन, शिक्षक दिवस मनाइन्छ। विकल्प ३ मा 개천절 मा आमाबुवालाई फूल लगाइदिने होइन, राष्ट्रको स्थापना दिवस मनाइन्छ।"}, {"n": 104, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["줄로 나사를 뚫̲어̲요̲.", "전기드릴로 무게를 재̲요̲.", "망치로 나사를 돌̲려̲요̲.", "쇠톱으로 철근을 잘̲라̲요̲."], "answer": 3, "explain": "쇠톱으로 철근을 잘라요 वाक्य सही हो किनभने स्टिल रड (철근) काट्न ह्याक्ससो (쇠톱) प्रयोग गरिन्छ। विकल्प १ मा 줄 ले स्क्रू प्वाल पार्दैन, फाइलले त चिल्लो बनाउने हो। विकल्प २ मा विद्युतीय ड्रिलले तौल नाप्दैन। विकल्प ३ मा हथौडीले स्क्रू घुमाउँदैन, स्क्रू ड्राइभरले घुमाउँछ।"}, {"n": 105, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["정으로 나무를 깎̲아̲요̲.", "리머로 구멍을 넓̲혀̲요̲.", "바이스로 못을 박̲아̲요̲.", "절단기로 벽돌을 돌̲려̲요̲."], "answer": 1, "explain": "리머로 구멍을 넓혀요 वाक्य सही हो किनभने रिमरले प्वाललाई फराकिलो बनाउँछ। विकल्प १ मा 정 ले काठ छिनेको ठाउँमा प्रायः छेक्स्याउने वा काट्ने काम हुन्छ, काठको बोक्रा ताछ्न त रेन्दो वा रन्दा प्रयोग हुन्छ। विकल्प ३ मा भाइसले किला ठोक्दैन, यो च्याप्ने औजार हो। विकल्प ४ मा कटिङ मेसिनले इँटा घुमाउँदैन।"}, {"n": 106, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["용접기로 나무를 붙̲여̲요̲.", "밴딩기로 나사를 조̲여̲요̲.", "판금 가위로 철판을 잘̲라̲요̲.", "판금 가위로 철판을 잘̲라̲요̲."], "answer": 2, "explain": "판금 가위로 철판을 잘라요 वाक्य सही हो किनभने पाना काट्ने कैची (판금 가위) ले पाता (철판) काटिन्छ। विकल्प १ मा वेल्डिङ मेसिनले काठ टाँस्दैन। विकल्प २ मा बेन्डिङ मेसिनले स्क्रू कस्दैन। विकल्प ४ मा पनि उही वाक्य दोहोरिएको छ। यस प्रश्नमा विकल्प ३ र विकल्प ४ दुवै उस्तै र सही भएकोले पुस्तकको उत्तर केही त्रुटिपूर्ण छ।"}, {"n": 107, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["분무기로 철근을 절̲단̲해̲요̲.", "대패로 벽돌을 다̲듬̲어̲요̲.", "끌로 나무에 홈을 따̲내̲요̲.", "글램프로 나무를 잘̲라̲요̲."], "answer": 2, "explain": "끌로 나무에 홈을 따내요 वाक्य सही हो किनभने छिनो (끌) ले काठमा खोफ वा ग्रुभ (홈) काटिन्छ। विकल्प १ मा स्प्रेले रड काट्दैन। विकल्प २ मा रन्दा (대패) ले इँटा चिल्लो पार्दैन, काठमा प्रयोग हुन्छ। विकल्प ४ मा क्ल्याम्पले काठ काट्दैन, च्याप्छ।"}, {"n": 108, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["건조기로 벽을 칠̲해̲요̲.", "청소기로 물을 끓̲여̲요̲.", "철근으로 나무를 잘̲라̲요̲.", "벽돌로 벽을 쌓̲아̲요̲."], "answer": 3, "explain": "벽돌로 벽을 쌓아요 वाक्य सही हो किनभने इँटा (벽돌) ले पर्खाल (벽) बनाइन्छ वा लगाइन्छ। विकल्प १ मा ड्रायरले भित्ता रंग्याउँदैन। विकल्प २ मा भ्याकुम क्लिनरले पानी उमाल्दैन। विकल्प ३ मा स्टिल रड (철근) ले काठ काट्दैन।"}, {"n": 109, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["결속선으로 나무를 잘̲라̲요̲.", "크레인으로 무거운 것을 들̲어̲요̲.", "굴착기로 유리를 깎̲아̲요̲.", "지게차로 필요없는 흙을 던̲져̲요̲."], "answer": 1, "explain": "② सही उत्तर हो किनकि क्रेन (크레인) ले भारी सामानहरू उठाउँछ। ① 결속선 (बाइन्डिङ तार) ले काठ काट्दैन — काट्ने काम आरा वा मेसिनले गर्छ। ③ 굴착기 (excavator) ले सिसा छाँट्दैन — यो माटो खन्न प्रयोग हुन्छ। ④ 지गे차 (forklift) ले फोहोर माटो फ्याँक्दैन — यो सामान बोक्न प्रयोग हुन्छ।"}, {"n": 110, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["불도저로 나무를 조̲여̲요̲.", "낫으로 철판을 깎̲아̲요̲.", "괭이로 흙을 파̲요̲.", "삽으로 나무를 붙̲여̲요̲."], "answer": 2, "explain": "③ सही उत्तर हो किनकि कुटो वा पिकी (괭이) ले माटो खन्छ (파요)। ① 불도저 (bulldozer) ले काठ कस्दैन, यो माटो सम्याउन प्रयोग हुन्छ। ② 낫 (दँती/हँसिया) ले फलामको पाता छाँट्दैन, यसले घाँस वा बाली काट्छ। ④ 삽 (बेल्चा) ले काठ टाँस्दैन, यो माटो खन्न र फाल्न प्रयोग हुन्छ।"}, {"n": 111, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["호미로 감자를 심̲어̲요̲.", "급이기로 사료를 나̲눠̲줘̲요̲.", "급수기로 흙을 퍼̲내̲요̲.", "조사료로 기계를 고̲쳐̲요̲."], "answer": 1, "explain": "② सही उत्तर हो किनकि दाना खुवाउने मेसिन (급이기) ले दाना वितरण गर्छ वा बाँडिदिन्छ (나눠줘요)। ① 호미 (कुदालो/सानो बेल्चा) ले आलु रोप्दैन, यो झार उखेल्न वा माटो कोट्याउन प्रयोग हुन्छ। ③ 급수기 (पानी खुवाउने भाँडो) ले माटो बाहिर निकाल्दैन। ④ 고형사료 (सुख्खा दाना) ले मेसिन मर्मत गर्दैन।"}, {"n": 112, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["뜰채로 고기를 잘̲라̲요̲.", "양망기로 기계를 끌̲어̲요̲.", "밧줄로 돌을 쪼̲아̲요̲.", "통발로 물고기를 잡̲아̲요̲."], "answer": 3, "explain": "④ सही उत्तर हो किनकि माछा समात्ने पासो वा थुन्से (통발) ले माछा समात्छ (잡아요)। ① 뜰채 (जाली) ले माछा काट्दैन। ② 양망기 (NET hauler) ले मेसिन तान्दैन, यसले माछा मार्ने जाल तान्छ। ③ 밧줄 (डोरी) ले ढुंगा टुक्राउँदैन।"}, {"n": 113, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["바늘대로 상자를 포̲장̲해̲요̲.", "소화기로 논밭을 부̲려̲요̲.", "사다리로 높은 곳에 올̲라̲가̲요̲.", "착암기로 철판을 구부려요."], "answer": 2, "explain": "③ सही उत्तर हो किनकि भर्‍याङ (사다리) ले अग्लो ठाउँमा उक्लिन मद्दत गर्छ। ① 바늘대 (सियो) ले बाकस प्याक गर्दैन। ② 소화기 (अग्निनियन्त्रक) ले खेतबारी जोत्दैन — आगो निभाउँछ। ④ 착암기 (रक ड्रिल) ले फलामको पाता बंग्याउँदैन — यसले चट्टान प्वाल पार्छ।"}, {"n": 114, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["밀링 머신으로 나무를 문̲질̲러̲요̲.", "전동커터로 철판을 절̲단̲해̲요̲.", "글램프로 바닥을 잘라요.", "망치로 종이를 붙̲여̲요̲."], "answer": 1, "explain": "② सही उत्तर हो किनकि इलेक्ट्रो-कटर (전동커터) ले फलामको पाता काट्छ वा टुक्रा पार्छ (절단해요)। ① 밀링 머신 (मिसिन) ले काठ घस्दैन, यो धातु काट्न प्रयोग हुन्छ। ③ 글램프 (क्ल्याम्प) ले भुइँ काट्दैन, सामान च्याप्छ। ④ 망치 (हथौडा) ले कागज टाँस्दैन, किला ठोक्छ।"}, {"n": 115, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["컨베이어로 물을 뿌̲려̲요̲.", "스크레이퍼로 못을 박̲아̲요̲.", "선반 기계로 금속을 가̲공̲해̲요̲.", "프레스 기계로 흙을 파̲요̲."], "answer": 2, "explain": "③ सही उत्तर हो किनकि लेथ मेसिन (선반 기계) ले धातुलाई प्रशोधन वा आकार दिन्छ (가공해요)। ① 컨베이어 (कन्भेयर बेल्ट) ले पानी छर्कंदैन, सामान ओसार्छ। ② 스크레이퍼 (स्क्रैपर) ले किला गाड्दैन। ④ 프레스 기계 (प्रेस मेसिन) ले माटो खन्दैन, धातु थिच्छ।"}, {"n": 116, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["스패너로 나무를 꺼̲요̲.", "니퍼로 나사를 끓̲어̲요̲.", "펜치로 철사를 집̲어̲요̲.", "드라이버로 철근을 옮̲겨̲요̲."], "answer": 2, "explain": "③ सही उत्तर हो किनकि पेंचकस वा प्लायर्स (펜치) ले तार च्याप्छ वा समात्छ (집어요)। ① 스패너 (स्पाना) ले काठ निभाउँदैन। ② 니퍼 (निपर) ले नट वा स्क्रू उमाल्दैन, तार काट्छ। ④ 드라이버 (ड्राइभर/पेंचकस) ले रड (철근) सार्दैन।"}, {"n": 117, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["사포로 나무를 매̲끄̲럽̲게̲ ̲해̲요̲.", "대패로 금속을 붙̲여̲요̲.", "줄로 나무를 돌̲려̲요̲.", "바이스로 구멍을 넓̲혀̲요̲."], "answer": 0, "explain": "① सही उत्तर हो किनकि स्यान्डपेपर वा खास्खसे कागज (사포) ले काठलाई चिल्लो बनाउँछ (매끄럽게 해요)। ② 대패 (रन्दा) ले धातु टाँस्दैन, काठ छस्छ। ③ 줄 (फाइल/रेती) ले काठ घुमाउँदैन। ④ 바이스 (भाइस) ले प्वाल ठूलो पार्दैन, च्याप्ने काम गर्छ।"}, {"n": 118, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["정으로 온̲도̲를̲ ̲조̲절̲해̲요̲.", "판금 가위로 나̲사̲를̲ ̲박̲아̲요̲.", "리머로 철̲사̲를̲ ̲구̲부̲려̲요̲.", "절단기로 철̲근̲을̲ ̲잘̲라̲요̲."], "answer": 3, "explain": "④ सही उत्तर हो किनकि काट्ने मेसिन (절단기) ले रड वा फलाम काट्छ (잘라요)। ① 정 (छैन) ले तापक्रम मिलाउँदैन। ② 판금 가위 (पाता काट्ने कैंची) ले स्क्रू गाड्दैन। ③ 리머 (रीमर) ले तार बंग्याउँदैन, प्वाल सफा/ठूलो पार्छ।"}, {"n": 119, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["드라이버로 벽을 뚫̲어̲요̲.", "니퍼로 전선을 잘̲라̲요̲.", "망치로 나사를 돌̲려̲요̲.", "펜치로 못을 박̲아̲요̲."], "answer": 1, "explain": "② सही उत्तर हो किनकि निपर (니퍼) ले बिजुलीको तार काट्छ (잘라요)। ① 드라이버 (पेंचकस) ले भित्ता प्वाल पार्दैन, ड्रिल मेसिनले पार्छ। ③ 망치 (हथौडा) ले स्क्रू घुमाउँदैन, पेंचकसले घुमाउँछ। ④ 펜치 (प्लायर्स) ले किला गाड्दैन, हथौडाले गाड्छ।"}, {"n": 120, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["낫으로 나̲무̲를̲ ̲깎̲아̲요̲.", "괭이로 나̲사̲를̲ ̲조̲여̲요̲.", "호미로 풀을 캐̲요̲.", "삽으로 철̲판̲을̲ ̲절̲단̲해̲요̲."], "answer": 2, "explain": "③ सही उत्तर हो किनकि कुदालो वा सानो बेल्चा (호미) ले झार वा घाँस उखेल्छ/खनेर निकाल्छ (캐요)। ① 낫 (हँसिया) ले काठ छाँट्दैन, घाँस काट्छ। ② 괭이 (कुटो) ले स्क्रू कस्दैन। ④ 삽 (बेल्चा) ले फलामको पाता काट्दैन।"}, {"n": 121, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["청소기로 흙̲을̲ ̲옮̲겨̲요̲.", "건조기로 물̲을̲ ̲말̲려̲요̲.", "열풍기로 못̲을̲ ̲박̲아̲요̲.", "사포로 벽̲을̲ ̲뚫̲어̲요̲."], "answer": 1, "explain": "② 건조기로 물을 말려요 सही उत्तर हो किनकि ड्राइभर (건조기) ले पानी सुकाउँछ (말려요)। ① भ्याकुम क्लिनरले माटो सार्दैन। ③ तातो हावा फाल्ने मेसिनले किला ठोक्दैन। ④ स्यापेपरले पर्खाल प्वाल पार्दैन।"}, {"n": 122, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["프레스 기계로 철̲판̲을̲ ̲눌̲러̲요̲.", "밀링 머신으로 흙̲을̲ ̲떠̲요̲.", "컨베이어로 나̲사̲를̲ ̲돌̲려̲요̲.", "착암기로 벽̲돌̲을̲ ̲붙̲여̲요̲."], "answer": 0, "explain": "① 프레스 기계로 철판을 눌러요 सही उत्तर हो किनकि प्रेस मेसिन (프레스 기계) ले फलामको पाता थिच्छ (누르다)। ② मिलिङ मेसिनले माटो खोतर्दैन। ③ कन्वेयरले नट घुमाउँदैन। ④ रक ड्रिलले इँटा टाँस्दैन।"}, {"n": 123, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["높은 곳에서 일할 때 장̲갑̲을̲ ̲끼̲어̲요̲.", "귀를 보호하기 위해 장̲화̲를̲ ̲신̲어̲요̲.", "용접을 할 때 방̲열̲복̲을̲ ̲착̲용̲해̲요̲.", "발을 보호하기 위해 안̲전̲모̲를̲ ̲써̲요̲."], "answer": 2, "explain": "③ 용접을 할 때 방열복을 착용해요 सही उत्तर हो किनकि वेल्डिंग गर्दा तातोबाट बच्ने कपडा (방열복) लगाइन्छ। ① अग्लो ठाउँमा काम गर्दा पञ्जा होइन सुरक्षा बेल्ट लगाइन्छ। ② कानको सुरक्षाका लागि बुट होइन इयरमफ लगाइन्छ। ④ खुट्टाको सुरक्षाका लागि हेलमेट होइन सुरक्षा जुत्ता लगाइन्छ।"}, {"n": 124, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["제조업에서는 건물을 지어요.", "농업에서 기계를 만들어요.", "축산업에서는 생선을 길러요.", "광업에서는 석탄과 석유를 캐내요."], "answer": 3, "explain": "④ 광업에서는 석탄과 석유를 캐내요 सही उत्तर हो किनकि खानी उद्योग (광업) ले कोइला र पेट्रोल खनेर निकाल्छ। ① उत्पादन क्षेत्रले भवन बनाउँदैन, सामान बनाउँछ। ② कृषि क्षेत्रले मेसिन बनाउँदैन, खेती गर्छ। ③ पशुपालन क्षेत्रले माछापाल्दैन, पशुपन्छी पाल्छ।"}, {"n": 125, "q": "다음 중 밑줄 친 부분이 맞는 문장을 고르십시오। (तलका वाक्यहरूमध्ये रेखाङ्कित भाग सही भएको वाक्य छान्नुहोस्।)", "options": ["조선업은 자동차를 만드는 중요한 산업이에요.", "임업은 숲을 지키고 나무를 활용하는 산업이에요.", "양식업은 가축을 기르고 이익을 얻는 산업이에요.", "서비스업은 사람들에게 먹을 것을 제공하는 산업이에요."], "answer": 1, "explain": "② '임업은 숲을 지키고 나무를 활용하는 산업이에요' सही उत्तर हो किनकि वन उद्योग (임업) ले जङ्गल जोगाउँछ र काठको सदुपयोग गर्छ। ① जहाज निर्माण क्षेत्र (조선업) ले गाडी होइन पानीजहाज बनाउँछ। ③ मत्स्यपालन/जलचर पालन (양식업) ले पशुपन्छी (가축) होइन माछा पाल्छ। ④ सेवा क्षेत्र (서비스업) ले खानेकुरा मात्र होइन विभिन्न सेवा प्रदान गर्छ।"}];
+
+const PER_PAGE = 20;
+const TOTAL = QUESTIONS.length;
+const SET_ID = 'eps-125-set-03';
+const answers = {}; // question index -> chosen option index
+let page = 0;
+let submitted = false;
+let reviewFilter = 'all';
+
+// --- progress auto-save (localStorage) ---
+// Saved per set (key includes SET_ID), so each set file keeps its own
+// progress. Wrapped in try/catch: if the browser blocks storage, the quiz
+// still works, it just won't remember progress.
+const STORE_KEY = 'eps-quiz-' + SET_ID;
+function storeAvailable() {
+  try { localStorage.setItem('__eps_test__', '1'); localStorage.removeItem('__eps_test__'); return true; }
+  catch (e) { return false; }
+}
+const storeOK = storeAvailable();
+function saveProgress() {
+  if (!storeOK) return;
+  try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: answers, page: page })); } catch (e) {}
+}
+function loadProgress() {
+  if (!storeOK) return;
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (data && data.answers) {
+      Object.keys(data.answers).forEach(k => { answers[k] = data.answers[k]; });
+      if (typeof data.page === 'number' && data.page >= 0 && data.page < Math.ceil(TOTAL / PER_PAGE)) page = data.page;
+    }
+  } catch (e) {}
+}
+function clearProgress() {
+  if (storeOK) { try { localStorage.removeItem(STORE_KEY); } catch (e) {} }
+}
+loadProgress();
+
+const $ = (id) => document.getElementById(id);
+const circled = ['①','②','③','④'];
+
+function updateProgress() {
+  const done = Object.keys(answers).length;
+  $('progressBar').style.width = (done / TOTAL * 100) + '%';
+  $('progressText').textContent = done + ' / ' + TOTAL + ' answered';
+  $('submitHint').textContent = done === TOTAL ? 'All answered — ready to submit!' : (TOTAL - done) + ' unanswered (counted wrong on submit).';
+}
+
+function renderPage() {
+  const list = $('questionList');
+  list.innerHTML = '';
+  const start = page * PER_PAGE;
+  const end = Math.min(start + PER_PAGE, TOTAL);
+  for (let i = start; i < end; i++) {
+    const q = QUESTIONS[i];
+    const card = document.createElement('div');
+    card.className = 'q-card' + (answers[i] !== undefined ? ' answered' : '');
+    card.innerHTML =
+      '<div class="q-num">Question ' + q.n + '</div>' +
+      '<div class="q-text"></div>' +
+      '<div class="options"></div>';
+    card.querySelector('.q-text').textContent = q.q;
+    const opts = card.querySelector('.options');
+    q.options.forEach((opt, oi) => {
+      const label = document.createElement('label');
+      if (answers[i] === oi) label.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'q' + i;
+      input.checked = answers[i] === oi;
+      input.addEventListener('change', () => {
+        answers[i] = oi;
+        card.classList.add('answered');
+        card.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+        label.classList.add('selected');
+        updateProgress();
+        saveProgress();
+      });
+      const span = document.createElement('span');
+      span.textContent = circled[oi] + ' ' + opt;
+      label.appendChild(input);
+      label.appendChild(span);
+      opts.appendChild(label);
+    });
+    list.appendChild(card);
+  }
+  $('pageInfo').textContent = 'Page ' + (page + 1) + ' of ' + Math.ceil(TOTAL / PER_PAGE) + '  (Q' + QUESTIONS[start].n + '–Q' + QUESTIONS[end - 1].n + ')';
+  $('prevBtn').disabled = page === 0;
+  $('nextBtn').disabled = end >= TOTAL;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitQuiz() {
+  const unanswered = TOTAL - Object.keys(answers).length;
+  if (unanswered > 0 && !confirm(unanswered + ' question(s) still unanswered — they will count as wrong. Submit anyway?')) return;
+  submitted = true;
+  let score = 0;
+  QUESTIONS.forEach((q, i) => { if (answers[i] === q.answer) score++; });
+  const pct = Math.round(score / TOTAL * 100);
+  $('scoreBig').textContent = score + ' / ' + TOTAL;
+  $('scorePct').textContent = pct + '% correct';
+  $('scoreMsg').textContent =
+    pct >= 90 ? 'Excellent! EPS-TOPIK ready. 🎉' :
+    pct >= 70 ? 'Very good! Keep polishing the weak ones.' :
+    pct >= 50 ? 'Good start — review the wrong ones below and try again.' :
+    'Keep practicing — the explanations below will help.';
+  $('quizView').classList.add('hidden');
+  $('submitBar').classList.add('hidden');
+  $('resultView').classList.remove('hidden');
+  renderReview();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderReview() {
+  const list = $('reviewList');
+  list.innerHTML = '';
+  QUESTIONS.forEach((q, i) => {
+    const mine = answers[i];
+    const ok = mine === q.answer;
+    if (reviewFilter === 'wrong' && ok) return;
+    if (reviewFilter === 'correct' && !ok) return;
+    const card = document.createElement('div');
+    card.className = 'review-card ' + (ok ? 'correct' : 'wrong');
+    const mineText = mine === undefined ? 'No answer' : circled[mine] + ' ' + q.options[mine];
+    card.innerHTML =
+      '<div class="verdict ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✓ Correct' : '✗ Wrong') + ' — Question ' + q.n + '</div>' +
+      '<div class="q-text"></div>' +
+      '<div class="ans-line">Your answer: <b class="' + (ok ? 'right' : 'mine-wrong') + '"></b></div>' +
+      '<div class="ans-line">Correct answer: <b class="right"></b></div>' +
+      '<div class="explain"><b>किन?</b> <span></span></div>';
+    card.querySelector('.q-text').textContent = q.q;
+    card.querySelector('.ans-line .mine-wrong, .ans-line .right').textContent = '';
+    card.querySelectorAll('.ans-line b')[0].textContent = mineText;
+    card.querySelectorAll('.ans-line b')[1].textContent = circled[q.answer] + ' ' + q.options[q.answer];
+    card.querySelector('.explain span').textContent = q.explain;
+    list.appendChild(card);
+  });
+  if (!list.children.length) {
+    list.innerHTML = '<p style="color:var(--muted); text-align:center; padding:20px;">No questions in this filter.</p>';
+  }
+}
+
+$('prevBtn').addEventListener('click', () => { if (page > 0) { page--; renderPage(); saveProgress(); } });
+$('nextBtn').addEventListener('click', () => { if ((page + 1) * PER_PAGE < TOTAL) { page++; renderPage(); saveProgress(); } });
+$('submitBtn').addEventListener('click', submitQuiz);
+$('clearBtn').addEventListener('click', () => {
+  if (!confirm('Sabai answers clear garne? Saved progress pani delete hunchha.')) return;
+  Object.keys(answers).forEach(k => delete answers[k]);
+  clearProgress();
+  page = 0;
+  renderPage(); updateProgress();
+  window.scrollTo({ top: 0 });
+});
+$('retryBtn').addEventListener('click', () => {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  clearProgress();
+  submitted = false; page = 0; reviewFilter = 'all';
+  document.querySelectorAll('.filters button').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+  $('resultView').classList.add('hidden');
+  $('quizView').classList.remove('hidden');
+  $('submitBar').classList.remove('hidden');
+  renderPage(); updateProgress();
+  window.scrollTo({ top: 0 });
+});
+$('reviewTopBtn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+document.querySelectorAll('.filters button').forEach(b => {
+  b.addEventListener('click', () => {
+    reviewFilter = b.dataset.filter;
+    document.querySelectorAll('.filters button').forEach(x => x.classList.toggle('active', x === b));
+    renderReview();
+  });
+});
+
+renderPage();
+updateProgress();
+</script>
+</body>
+</html>
