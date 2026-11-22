@@ -66,6 +66,16 @@
   .review-card .ans-line b { font-weight: 700; }
   .review-card .ans-line .mine-wrong { color: var(--red); }
   .review-card .ans-line .right { color: var(--green); }
+  .rev-opts { margin: 10px 0 4px; }
+  .rev-opt { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; font-size: .98rem; line-height: 1.6; }
+  .rev-opt-correct { background: var(--green-bg); border-color: var(--green); }
+  .rev-opt-mine-wrong { background: var(--red-bg); border-color: var(--red); }
+  .rev-opt .rev-text { flex: 1; }
+  .rev-opt .badge { flex: none; font-size: .78rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: auto; white-space: nowrap; }
+  .badge-correct { background: var(--green); color: #fff; }
+  .badge-mine { background: var(--green); color: #fff; }
+  .badge-mine-wrong { background: var(--red); color: #fff; }
+  .rev-no-answer { color: var(--muted); font-size: .9rem; margin: 4px 0 8px; }
   .explain { background: #f8f9fa; border-radius: 8px; padding: 12px 14px; margin-top: 10px; font-size: .96rem; }
   .explain b { color: var(--primary-dark); }
   .hidden { display: none; }
@@ -253,17 +263,42 @@ function renderReview() {
     if (reviewFilter === 'correct' && !ok) return;
     const card = document.createElement('div');
     card.className = 'review-card ' + (ok ? 'correct' : 'wrong');
-    const mineText = mine === undefined ? 'No answer' : circled[mine] + ' ' + q.options[mine];
     card.innerHTML =
       '<div class="verdict ' + (ok ? 'ok' : 'no') + '">' + (ok ? '✓ Correct' : '✗ Wrong') + ' — Question ' + q.n + '</div>' +
       '<div class="q-text"></div>' +
-      '<div class="ans-line">Your answer: <b class="' + (ok ? 'right' : 'mine-wrong') + '"></b></div>' +
-      '<div class="ans-line">Correct answer: <b class="right"></b></div>' +
+      '<div class="rev-opts"></div>' +
       '<div class="explain"><b>किन?</b> <span></span></div>';
     card.querySelector('.q-text').textContent = q.q;
-    card.querySelector('.ans-line .mine-wrong, .ans-line .right').textContent = '';
-    card.querySelectorAll('.ans-line b')[0].textContent = mineText;
-    card.querySelectorAll('.ans-line b')[1].textContent = circled[q.answer] + ' ' + q.options[q.answer];
+    const optsBox = card.querySelector('.rev-opts');
+    if (mine === undefined) {
+      const note = document.createElement('div');
+      note.className = 'rev-no-answer';
+      note.textContent = 'उत्तर दिएनौ';
+      optsBox.appendChild(note);
+    }
+    q.options.forEach((opt, oi) => {
+      const row = document.createElement('div');
+      row.className = 'rev-opt';
+      if (oi === q.answer) row.classList.add('rev-opt-correct');
+      if (mine !== undefined && oi === mine && mine !== q.answer) row.classList.add('rev-opt-mine-wrong');
+      const text = document.createElement('span');
+      text.className = 'rev-text';
+      text.textContent = circled[oi] + ' ' + opt;
+      row.appendChild(text);
+      if (oi === q.answer) {
+        const b = document.createElement('span');
+        b.className = 'badge badge-correct';
+        b.textContent = '✓ सही उत्तर';
+        row.appendChild(b);
+      }
+      if (mine !== undefined && oi === mine) {
+        const b = document.createElement('span');
+        b.className = 'badge ' + (mine === q.answer ? 'badge-mine' : 'badge-mine-wrong');
+        b.textContent = '→ तिम्रो उत्तर';
+        row.appendChild(b);
+      }
+      optsBox.appendChild(row);
+    });
     card.querySelector('.explain span').textContent = q.explain;
     list.appendChild(card);
   });
