@@ -29,6 +29,7 @@
   .progress-wrap { margin-top: 12px; background: rgba(255,255,255,.25); border-radius: 999px; height: 8px; overflow: hidden; }
   .progress-bar { height: 100%; background: #fff; width: 0%; transition: width .3s; }
   .progress-text { font-size: .82rem; margin-top: 6px; opacity: .95; }
+  .autosave-note { font-size: .78rem; margin-top: 4px; opacity: .85; }
   main { max-width: 760px; margin: 0 auto; padding: 20px 16px 80px; }
   .q-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
   .q-card.answered { border-left: 4px solid var(--primary); }
@@ -86,6 +87,15 @@
     .q-text { font-size: 1rem; }
     .submit-bar .hint { display: none; }
   }
+  @media (max-width: 600px) {
+    header { padding: 10px 12px; }
+    .back-btn { padding: 6px 14px; font-size: .85rem; margin-bottom: 8px; }
+    header h1 { font-size: 1.05rem; line-height: 1.25; }
+    header p { font-size: .78rem; line-height: 1.35; }
+    .progress-wrap { margin-top: 8px; height: 6px; }
+    .progress-text { font-size: .75rem; margin-top: 4px; }
+    .autosave-note { font-size: .7rem; margin-top: 2px; }
+  }
 </style>
 </head>
 <body>
@@ -96,7 +106,7 @@
     <p>Set 3 of 3 &bull; Questions 101–125 &bull; 25 questions &bull; EPS-TOPIK Grammar &mdash; answers from the book's answer sheet; explanations AI-generated in Nepali &mdash; check with a teacher</p>
     <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
     <div class="progress-text" id="progressText">0 / 25 answered</div>
-    <div style="font-size:.78rem; margin-top:4px; opacity:.85;">Progress will be auto-saved.</div>
+    <div class="autosave-note">Progress will be auto-saved.</div>
   </div>
 </header>
 
